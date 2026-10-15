@@ -1,0 +1,1115 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hari Om Optics | Premium Eyewear & Eyecare</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f4f6fb',
+                            100: '#e8edf5',
+                            500: '#4f46e5',
+                            600: '#4338ca',
+                            700: '#3730a3',
+                            900: '#1e1b4b',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 min-h-screen flex flex-col transition-colors duration-300">
+
+    <!-- Top Announcement Bar -->
+    <div class="bg-indigo-600 text-white text-xs sm:text-sm py-2 px-4 text-center font-medium flex items-center justify-center gap-2">
+        <span>✨ Free Express Shipping on Orders Over ₹4500 & Free 10-Day Returns!</span>
+        <button onclick="scrollToSection('catalog')" class="underline hover:text-indigo-200 transition">Shop Now</button>
+    </div>
+
+    <!-- Navigation Bar -->
+    <header class="sticky top-0 z-40 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 transition-colors">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <div class="flex items-center gap-3 cursor-pointer" onclick="navigate('home')">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 to-violet-500 flex items-center justify-center text-white shadow-lg shadow-indigo-500/30">
+                    <i data-lucide="eye" class="w-6 h-6"></i>
+                </div>
+                <div>
+                    <span class="text-xl font-bold tracking-tight bg-gradient-to-r from-indigo-600 to-violet-600 bg-clip-text text-transparent">Hari Om Optics</span>
+                    <span class="block text-[10px] tracking-widest text-slate-400 uppercase font-semibold">Vision & Style</span>
+                </div>
+            </div>
+
+            <!-- Desktop Nav Links -->
+            <nav class="hidden md:flex items-center gap-8 font-medium text-sm">
+                <button onclick="navigate('home')" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition">Home</button>
+                <button onclick="navigate('catalog')" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition">Eyewear</button>
+                <button onclick="openVirtualTryOnModal()" class="flex items-center gap-1.5 text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 transition bg-indigo-50 dark:bg-indigo-950/50 px-3 py-1.5 rounded-full">
+                    <i data-lucide="sparkles" class="w-4 h-4"></i> Virtual Try-On
+                </button>
+                <button onclick="scrollToSection('eye-test')" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition">Eye Exam Quiz</button>
+                <button onclick="scrollToSection('reviews')" class="hover:text-indigo-600 dark:hover:text-indigo-400 transition">Reviews</button>
+            </nav>
+
+            <!-- Actions (Theme Toggle, Cart, Mobile Menu Button) -->
+            <div class="flex items-center gap-3">
+                <!-- Theme Toggle -->
+                <button onclick="toggleDarkMode()" class="p-2.5 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 transition" aria-label="Toggle Theme">
+                    <i id="theme-icon" data-lucide="moon" class="w-5 h-5"></i>
+                </button>
+
+                <!-- Cart Button -->
+                <button onclick="toggleCartDrawer(true)" class="relative p-2.5 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 transition" aria-label="Shopping Cart">
+                    <i data-lucide="shopping-bag" class="w-5 h-5"></i>
+                    <span id="cart-badge" class="absolute top-1 right-1 bg-indigo-600 text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center shadow">0</span>
+                </button>
+
+                <!-- Mobile Hamburger -->
+                <button onclick="toggleMobileMenu()" class="md:hidden p-2.5 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 transition">
+                    <i data-lucide="menu" class="w-6 h-6"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobile-menu" class="fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-sm hidden transition-opacity">
+        <div class="absolute right-0 top-0 bottom-0 w-72 bg-white dark:bg-slate-900 p-6 flex flex-col shadow-2xl">
+            <div class="flex items-center justify-between pb-6 border-b border-slate-100 dark:border-slate-800">
+                <span class="font-bold text-lg text-indigo-600">Menu</span>
+                <button onclick="toggleMobileMenu()" class="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+            <div class="flex flex-col gap-4 mt-6 font-medium">
+                <button onclick="toggleMobileMenu(); navigate('home')" class="text-left py-2 hover:text-indigo-600">Home</button>
+                <button onclick="toggleMobileMenu(); navigate('catalog')" class="text-left py-2 hover:text-indigo-600">Eyewear Catalog</button>
+                <button onclick="toggleMobileMenu(); openVirtualTryOnModal()" class="text-left py-2 text-indigo-600 flex items-center gap-2"><i data-lucide="sparkles" class="w-4 h-4"></i> Virtual Try-On</button>
+                <button onclick="toggleMobileMenu(); scrollToSection('eye-test')" class="text-left py-2 hover:text-indigo-600">Eye Exam Quiz</button>
+                <button onclick="toggleMobileMenu(); scrollToSection('reviews')" class="text-left py-2 hover:text-indigo-600">Customer Reviews</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content Area -->
+    <main class="flex-grow">
+
+        <!-- HOME VIEW -->
+        <div id="view-home" class="space-y-16 pb-20">
+            <!-- Hero Section -->
+            <section class="relative overflow-hidden bg-gradient-to-b from-indigo-50/50 dark:from-slate-900 dark:to-slate-900 pt-12 pb-20">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                    <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-indigo-100 dark:bg-indigo-950/80 text-indigo-700 dark:text-indigo-300 text-xs font-semibold uppercase tracking-wider">
+                            <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> Spring 2026 Collection
+                        </div>
+                        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-tight">
+                            See the world in <span class="bg-gradient-to-r from-indigo-600 to-violet-600 bg-clip-text text-transparent">brilliant clarity</span>
+                        </h1>
+                        <p class="text-lg text-slate-600 dark:text-slate-300 max-w-xl mx-auto lg:mx-0">
+                            Discover handcrafted frames, prescription lenses with advanced anti-glare coatings, and try them on instantly using our virtual mirror.
+                        </p>
+                        <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-4">
+                            <button onclick="navigate('catalog')" class="px-8 py-4 rounded-2xl bg-indigo-600 hover:bg-indigo-700 text-white font-semibold shadow-xl shadow-indigo-600/30 transition transform hover:-translate-y-0.5 flex items-center gap-2">
+                                Explore Collection <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                            </button>
+                            <button onclick="openVirtualTryOnModal()" class="px-8 py-4 rounded-2xl bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-800 dark:text-white font-semibold border border-slate-200 dark:border-slate-700 shadow-sm transition flex items-center gap-2">
+                                <i data-lucide="camera" class="w-5 h-5 text-indigo-600"></i> Virtual Try-On
+                            </button>
+                        </div>
+                        <div class="pt-6 flex items-center justify-center lg:justify-start gap-8 text-sm text-slate-500 dark:text-slate-400">
+                            <div class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-emerald-500">></i> UV400 Protection</div>
+                            <div class="flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-emerald-500"></i> Premium Acetate</div>
+                        </div>
+                    </div>
+                    <div class="lg:col-span-5 relative">
+                        <div class="absolute -inset-4 bg-gradient-to-tr from-indigo-500 to-violet-500 rounded-3xl opacity-20 blur-2xl"></div>
+                        <div class="relative rounded-3xl overflow-hidden shadow-2xl border border-slate-200/50 dark:border-slate-800 bg-white dark:bg-slate-800">
+                            <img src="https://images.unsplash.com/photo-1511499767150-a48a237f0083?auto=format&fit=crop&q=80&w=800" alt="Model wearing stylish glasses" class="w-full h-[420px] object-cover hover:scale-105 transition duration-700">
+                            <div class="absolute bottom-4 left-4 right-4 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md p-4 rounded-2xl shadow-lg border border-slate-100 dark:border-slate-800 flex items-center justify-between">
+                                <div>
+                                    <span class="text-xs font-semibold text-indigo-600 dark:text-indigo-400 uppercase">Featured Frame</span>
+                                    <h4 class="font-bold text-slate-900 dark:text-white">Aura Round Gold</h4>
+                                </div>
+                                <button onclick="quickView('1')" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold rounded-xl shadow">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Trending Categories -->
+            <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-2xl mx-auto mb-12">
+                    <h2 class="text-3xl font-bold tracking-tight text-slate-900 dark:text-white">Browse By Category</h2>
+                    <p class="text-slate-600 dark:text-slate-400 mt-2">Find the perfect pair tailored to your lifestyle and visual needs.</p>
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                    <div onclick="filterByCategory('Eyeglasses')" class="group cursor-pointer bg-white dark:bg-slate-800 p-6 rounded-3xl border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-xl transition-all duration-300 text-center space-y-4">
+                        <div class="w-16 h-16 mx-auto bg-indigo-50 dark:bg-indigo-950/50 rounded-2xl flex items-center justify-center text-indigo-600 dark:text-indigo-400 group-hover:scale-110 transition">
+                            <i data-lucide="glasses" class="w-8 h-8"></i>
+                        </div>
+                        <h3 class="font-bold text-slate-900 dark:text-white group-hover:text-indigo-600 transition">Eyeglasses</h3>
+                        <p class="text-xs text-slate-500 dark:text-slate-400">Prescription & Style</p>
+                    </div>
+                    <div onclick="filterByCategory('Sunglasses')" class="group cursor-pointer bg-white dark:bg-slate-800 p-6 rounded-3xl border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-xl transition-all duration-300 text-center space-y-4">
+                        <div class="w-16 h-16 mx-auto bg-amber-50 dark:bg-amber-950/50 rounded-2xl flex items-center justify-center text-amber-600 dark:text-amber-400 group-hover:scale-110 transition">
+                            <i data-lucide="sun" class="w-8 h-8"></i>
+                        </div>
+                        <h3 class="font-bold text-slate-900 dark:text-white group-hover:text-indigo-600 transition">Sunglasses</h3>
+                        <p class="text-xs text-slate-500 dark:text-slate-400">UV Protection & Shades</p>
+                    </div>
+                    <div onclick="filterByCategory('Contact Lenses')" class="group cursor-pointer bg-white dark:bg-slate-800 p-6 rounded-3xl border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-xl transition-all duration-300 text-center space-y-4">
+                        <div class="w-16 h-16 mx-auto bg-teal-50 dark:bg-teal-950/50 rounded-2xl flex items-center justify-center text-teal-600 dark:text-teal-400 group-hover:scale-110 transition">
+                            <i data-lucide="eye" class="w-8 h-8"></i>
+                        </div>
+                        <h3 class="font-bold text-slate-900 dark:text-white group-hover:text-indigo-600 transition">Contact Lenses</h3>
+                        <p class="text-xs text-slate-500 dark:text-slate-400">Daily & Monthly Wear</p>
+                    </div>
+                    <div onclick="filterByCategory('Blue Light Glasses')" class="group cursor-pointer bg-white dark:bg-slate-800 p-6 rounded-3xl border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-xl transition-all duration-300 text-center space-y-4">
+                        <div class="w-16 h-16 mx-auto bg-violet-50 dark:bg-violet-950/50 rounded-2xl flex items-center justify-center text-violet-600 dark:text-violet-400 group-hover:scale-110 transition">
+                            <i data-lucide="monitor" class="w-8 h-8"></i>
+                        </div>
+                        <h3 class="font-bold text-slate-900 dark:text-white group-hover:text-indigo-600 transition">Blue Light</h3>
+                        <p class="text-xs text-slate-500 dark:text-slate-400">Screen Protection</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Promotional Banner -->
+            <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="relative rounded-3xl overflow-hidden bg-gradient-to-r from-indigo-900 via-indigo-800 to-violet-900 text-white p-8 sm:p-12 lg:p-16 flex flex-col md:flex-row items-center justify-between shadow-2xl">
+                    <div class="relative z-10 space-y-4 max-w-xl text-center md:text-left mb-8 md:mb-0">
+                        <span class="px-3 py-1 rounded-full bg-indigo-500/30 text-indigo-200 text-xs font-semibold uppercase tracking-widest border border-indigo-400/30">Limited Time Offer</span>
+                        <h2 class="text-3xl sm:text-4xl font-extrabold">Buy One, Get One Free on Designer Frames</h2>
+                        <p class="text-indigo-200 text-sm sm:text-base">Mix and match across our entire catalog of prescription eyeglasses and sunglasses. Use code <span class="bg-white/20 px-2 py-0.5 rounded font-mono font-bold text-white">HariOm2026</span> at checkout.</p>
+                        <button onclick="navigate('catalog')" class="px-8 py-3.5 bg-white text-indigo-900 font-bold rounded-2xl shadow-lg hover:bg-indigo-50 transition transform hover:-translate-y-0.5">Claim Offer Now</button>
+                    </div>
+                    <div class="relative z-10">
+                        <div class="w-48 h-48 sm:w-64 sm:h-64 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/20 shadow-inner">
+                            <i data-lucide="percent" class="w-24 h-24 text-indigo-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- CATALOG VIEW -->
+        <div id="view-catalog" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 hidden space-y-8">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-slate-200 dark:border-slate-800">
+                <div>
+                    <h1 class="text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white">Eyewear Catalog</h1>
+                    <p class="text-slate-500 dark:text-slate-400 mt-1">Explore our premium selection of frames and lenses.</p>
+                </div>
+                <div class="flex items-center gap-3">
+                    <div class="relative">
+                        <i data-lucide="search" class="w-4 h-4 absolute left-3.5 top-3.5 text-slate-400"></i>
+                        <input type="text" id="search-input" oninput="handleSearch()" placeholder="Search frames, styles..." class="pl-10 pr-4 py-2.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 w-full sm:w-64">
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+                <!-- Filters Sidebar -->
+                <div class="lg:col-span-1 space-y-6 bg-white dark:bg-slate-800 p-6 rounded-3xl border border-slate-200 dark:border-slate-700 h-fit shadow-sm">
+                    <div class="flex items-center justify-between pb-4 border-b border-slate-100 dark:border-slate-700">
+                        <h3 class="font-bold text-slate-900 dark:text-white flex items-center gap-2"><i data-lucide="sliders-horizontal" class="w-4 h-4"></i> Filters</h3>
+                        <button onclick="resetFilters()" class="text-xs text-indigo-600 dark:text-indigo-400 hover:underline">Reset All</button>
+                    </div>
+
+                    <!-- Category Filter -->
+                    <div class="space-y-3">
+                        <label class="text-xs font-semibold uppercase tracking-wider text-slate-400">Category</label>
+                        <div class="space-y-2" id="filter-category-container">
+                            <!-- Populated dynamically -->
+                        </div>
+                    </div>
+
+                    <!-- Frame Shape Filter -->
+                    <div class="space-y-3 pt-4 border-t border-slate-100 dark:border-slate-700">
+                        <label class="text-xs font-semibold uppercase tracking-wider text-slate-400">Frame Shape</label>
+                        <div class="space-y-2" id="filter-shape-container">
+                            <!-- Populated dynamically -->
+                        </div>
+                    </div>
+
+                    <!-- Gender Filter -->
+                    <div class="space-y-3 pt-4 border-t border-slate-100 dark:border-slate-700">
+                        <label class="text-xs font-semibold uppercase tracking-wider text-slate-400">Gender</label>
+                        <div class="space-y-2" id="filter-gender-container">
+                            <!-- Populated dynamically -->
+                        </div>
+                    </div>
+
+                    <!-- Price Range -->
+                    <div class="space-y-3 pt-4 border-t border-slate-100 dark:border-slate-700">
+                        <div class="flex justify-between text-xs font-semibold uppercase tracking-wider text-slate-400">
+                            <span>Max Price</span>
+                            <span id="price-output" class="text-indigo-600 dark:text-indigo-400 font-bold">$300</span>
+                        </div>
+                        <input type="range" id="price-range" min="50" max="300" value="300" step="10" oninput="handlePriceFilter(this.value)" class="w-full accent-indigo-600">
+                    </div>
+                </div>
+
+                <!-- Product Grid -->
+                <div class="lg:col-span-3 space-y-6">
+                    <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <!-- Populated dynamically -->
+                    </div>
+                    <!-- Empty State -->
+                    <div id="no-products" class="hidden text-center py-16 space-y-4">
+                        <i data-lucide="frown" class="w-12 h-12 mx-auto text-slate-400"></i>
+                        <h3 class="text-lg font-bold">No frames found matching your filters</h3>
+                        <p class="text-sm text-slate-500">Try resetting filters or adjusting search criteria.</p>
+                        <button onclick="resetFilters()" class="px-6 py-2.5 bg-indigo-600 text-white rounded-xl text-sm font-semibold shadow">Reset Filters</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- EYE EXAM QUIZ SECTION (Landing feature) -->
+        <section id="eye-test" class="max-w-5xl mx-auto px-4 py-16 my-10 bg-white dark:bg-slate-800 rounded-3xl border border-slate-200 dark:border-slate-700 shadow-sm">
+            <div class="text-center max-w-xl mx-auto space-y-3 mb-10">
+                <span class="text-xs font-semibold uppercase tracking-widest text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/50 px-3 py-1 rounded-full">Interactive Eye Quiz</span>
+                <h2 class="text-3xl font-bold tracking-tight">Do You Need New Lenses?</h2>
+                <p class="text-slate-500 dark:text-slate-400 text-sm">Take our quick 3-step vision check simulation to determine your lens requirements.</p>
+            </div>
+            <div id="quiz-container" class="max-w-xl mx-auto space-y-6">
+                <!-- Step 1 -->
+                <div class="quiz-step space-y-4" data-step="1">
+                    <h4 class="font-semibold text-lg">1. Do you experience eye strain or headaches after screen use?</h4>
+                    <div class="grid grid-cols-2 gap-4">
+                        <button onclick="answerQuiz(1, 'Yes')" class="p-4 rounded-2xl border border-slate-200 dark:border-slate-700 hover:border-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-950/30 text-sm font-medium transition">Frequently</button>
+                        <button onclick="answerQuiz(1, 'No')" class="p-4 rounded-2xl border border-slate-200 dark:border-slate-700 hover:border-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-950/30 text-sm font-medium transition">Rarely / Never</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- REVIEWS SECTION -->
+        <section id="reviews" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+            <div class="text-center max-w-2xl mx-auto mb-12 space-y-2">
+                <h2 class="text-3xl font-bold tracking-tight">Loved by 50,000+ Visionaries</h2>
+                <p class="text-slate-500 dark:text-slate-400">See what our customers have to say about our premium frames and customer service.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white dark:bg-slate-800 p-6 rounded-3xl border border-slate-200 dark:border-slate-700 shadow-sm space-y-4">
+                    <div class="flex text-amber-400">
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                    </div>
+                    <p class="text-sm text-slate-600 dark:text-slate-300 italic">"The virtual try-on was scarily accurate! The frames fit my face perfectly, and the blue light coating saved my daily workflow."</p>
+                    <div class="flex items-center gap-3 pt-2">
+                        <div class="w-10 h-10 rounded-full bg-indigo-100 dark:bg-indigo-950 text-indigo-600 font-bold flex items-center justify-center text-sm">JS</div>
+                        <div>
+                            <h5 class="font-bold text-sm">Jessica Smith</h5>
+                            <span class="text-xs text-slate-400">Verified Buyer</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white dark:bg-slate-800 p-6 rounded-3xl border border-slate-200 dark:border-slate-700 shadow-sm space-y-4">
+                    <div class="flex text-amber-400">
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                    </div>
+                    <p class="text-sm text-slate-600 dark:text-slate-300 italic">"Incredible quality at a fraction of designer store prices. The prescription upload modal made ordering seamless."</p>
+                    <div class="flex items-center gap-3 pt-2">
+                        <div class="w-10 h-10 rounded-full bg-violet-100 dark:bg-violet-950 text-violet-600 font-bold flex items-center justify-center text-sm">MR</div>
+                        <div>
+                            <h5 class="font-bold text-sm">Marcus Reynolds</h5>
+                            <span class="text-xs text-slate-400">Verified Buyer</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white dark:bg-slate-800 p-6 rounded-3xl border border-slate-200 dark:border-slate-700 shadow-sm space-y-4">
+                    <div class="flex text-amber-400">
+                        <i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i><i data-lucide="star" class="w-4 h-4 fill-current"></i>
+                    </div>
+                    <p class="text-sm text-slate-600 dark:text-slate-300 italic">"Fast shipping, premium packaging, and sturdy frames. Hari Om Optics is my go-to store for all my eyewear now."</p>
+                    <div class="flex items-center gap-3 pt-2">
+                        <div class="w-10 h-10 rounded-full bg-emerald-100 dark:bg-emerald-950 text-emerald-600 font-bold flex items-center justify-center text-sm">AL</div>
+                        <div>
+                            <h5 class="font-bold text-sm">Amanda Lee</h5>
+                            <span class="text-xs text-slate-400">Verified Buyer</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div class="space-y-4">
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center text-white">
+                        <i data-lucide="eye" class="w-5 h-5"></i>
+                    </div>
+                    <span class="font-bold text-lg">Hari Om Optics</span>
+                </div>
+                <p class="text-sm text-slate-500 dark:text-slate-400">Redefining eyewear with premium craftsmanship, advanced optics, and seamless virtual try-ons.</p>
+            </div>
+            <div>
+                <h4 class="font-semibold text-sm mb-4 uppercase tracking-wider">Quick Links</h4>
+                <ul class="space-y-2 text-sm text-slate-500 dark:text-slate-400">
+                    <li><button onclick="navigate('home')" class="hover:text-indigo-600">Home</button></li>
+                    <li><button onclick="navigate('catalog')" class="hover:text-indigo-600">Eyewear Catalog</button></li>
+                    <li><button onclick="openVirtualTryOnModal()" class="hover:text-indigo-600">Virtual Try-On</button></li>
+                    <li><button onclick="scrollToSection('eye-test')" class="hover:text-indigo-600">Eye Exam Quiz</button></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-semibold text-sm mb-4 uppercase tracking-wider">Categories</h4>
+                <ul class="space-y-2 text-sm text-slate-500 dark:text-slate-400">
+                    <li><button onclick="filterByCategory('Eyeglasses'); navigate('catalog')" class="hover:text-indigo-600">Eyeglasses</button></li>
+                    <li><button onclick="filterByCategory('Sunglasses'); navigate('catalog')" class="hover:text-indigo-600">Sunglasses</button></li>
+                    <li><button onclick="filterByCategory('Contact Lenses'); navigate('catalog')" class="hover:text-indigo-600">Contact Lenses</button></li>
+                    <li><button onclick="filterByCategory('Blue Light Glasses'); navigate('catalog')" class="hover:text-indigo-600">Blue Light Glasses</button></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-semibold text-sm mb-4 uppercase tracking-wider">Stay Connected</h4>
+                <p class="text-sm text-slate-500 dark:text-slate-400 mb-4">Subscribe for exclusive discount codes and new arrivals.</p>
+                <div class="flex gap-2">
+                    <input type="email" placeholder="Your email" class="px-4 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm focus:outline-none w-full">
+                    <button onclick="showToast('Thank you for subscribing!')" class="px-4 py-2 bg-indigo-600 text-white text-sm font-semibold rounded-xl hover:bg-indigo-700 shadow">Join</button>
+                </div>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 pt-6 border-t border-slate-100 dark:border-slate-800 text-center text-xs text-slate-400">
+            &copy; 2026 Hari Om Optics Inc. All rights reserved. Designed with precision and style.
+        </div>
+    </footer>
+
+    <!-- SHOPPING CART DRAWER -->
+    <div id="cart-drawer" class="fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-sm hidden transition-opacity flex justify-end">
+        <div class="w-full max-w-md bg-white dark:bg-slate-900 h-full shadow-2xl flex flex-col transform transition-transform">
+            <div class="p-6 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
+                <h3 class="font-bold text-lg flex items-center gap-2"><i data-lucide="shopping-bag" class="w-5 h-5 text-indigo-600"></i> Your Shopping Bag (<span id="cart-count">0</span>)</h3>
+                <button onclick="toggleCartDrawer(false)" class="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800"><i data-lucide="x" class="w-5 h-5"></i></button>
+            </div>
+            <div id="cart-items" class="flex-grow overflow-y-auto p-6 space-y-4 divide-y divide-slate-100 dark:divide-slate-800">
+                <!-- Cart items populated dynamically -->
+            </div>
+            <div id="cart-footer" class="p-6 border-t border-slate-200 dark:border-slate-800 space-y-4 bg-slate-50 dark:bg-slate-900/50 hidden">
+                <div class="flex justify-between text-sm">
+                    <span class="text-slate-500">Subtotal</span>
+                    <span id="cart-subtotal" class="font-bold">$0.00</span>
+                </div>
+                <div class="flex justify-between text-sm">
+                    <span class="text-slate-500">Shipping</span>
+                    <span class="font-bold text-emerald-600">FREE</span>
+                </div>
+                <div class="flex justify-between text-base font-extrabold pt-2 border-t border-slate-200 dark:border-slate-700">
+                    <span>Total</span>
+                    <span id="cart-total" class="text-indigo-600 dark:text-indigo-400">$0.00</span>
+                </div>
+                <button onclick="openCheckoutModal()" class="w-full py-4 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-2xl shadow-xl shadow-indigo-600/30 transition flex items-center justify-center gap-2">
+                    Proceed to Checkout <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                </button>
+            </div>
+            <div id="cart-empty" class="flex-grow flex flex-col items-center justify-center p-6 text-center space-y-4">
+                <div class="w-20 h-20 bg-indigo-50 dark:bg-indigo-950/50 rounded-full flex items-center justify-center text-indigo-600">
+                    <i data-lucide="shopping-bag" class="w-10 h-10"></i>
+                </div>
+                <h4 class="font-bold text-lg">Your bag is empty</h4>
+                <p class="text-sm text-slate-500">Discover our stunning eyewear collection and add your favorite frames.</p>
+                <button onclick="toggleCartDrawer(false); navigate('catalog')" class="px-6 py-3 bg-indigo-600 text-white text-sm font-semibold rounded-xl shadow">Start Shopping</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PRODUCT DETAIL & LENS CUSTOMIZATION MODAL -->
+    <div id="product-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4 overflow-y-auto">
+        <div class="bg-white dark:bg-slate-800 rounded-3xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl relative border border-slate-200 dark:border-slate-700 max-h-[90vh] overflow-y-auto">
+            <button onclick="closeProductModal()" class="absolute top-6 right-6 p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-700"><i data-lucide="x" class="w-5 h-5"></i></button>
+            <div id="modal-content" class="space-y-6">
+                <!-- Dynamically populated -->
+            </div>
+        </div>
+    </div>
+
+    <!-- VIRTUAL TRY-ON MODAL -->
+    <div id="try-on-modal" class="fixed inset-0 z-50 bg-slate-900/70 backdrop-blur-md hidden flex items-center justify-center p-4">
+        <div class="bg-white dark:bg-slate-800 rounded-3xl max-w-xl w-full p-6 sm:p-8 shadow-2xl relative border border-slate-200 dark:border-slate-700 text-center space-y-6">
+            <button onclick="closeVirtualTryOnModal()" class="absolute top-6 right-6 p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-700"><i data-lucide="x" class="w-5 h-5"></i></button>
+            <div class="space-y-2">
+                <span class="text-xs font-semibold uppercase tracking-widest text-indigo-600 bg-indigo-50 dark:bg-indigo-950 px-3 py-1 rounded-full">Virtual Mirror AI</span>
+                <h3 class="text-2xl font-bold">Try Glasses on Face</h3>
+                <p class="text-sm text-slate-500">See how different frames look using our interactive overlay simulation.</p>
+            </div>
+            
+            <div id="try-on-display" class="relative w-full h-72 bg-slate-100 dark:bg-slate-900 rounded-2xl overflow-hidden flex items-center justify-center border border-slate-200 dark:border-slate-700">
+                <!-- Model Face Placeholder -->
+                <img id="try-on-face" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=600" alt="Face placeholder" class="w-full h-full object-cover">
+                <!-- Overlay Glasses CSS preview -->
+                <div id="try-on-glasses-overlay" class="absolute top-28 w-40 h-16 border-4 border-amber-600/80 bg-amber-200/20 rounded-full shadow-lg flex items-center justify-center backdrop-blur-[1px] transition-all duration-300">
+                    <span id="overlay-label" class="text-[10px] font-bold text-amber-900 bg-white/80 px-2 py-0.5 rounded shadow">Aura Round</span>
+                </div>
+            </div>
+
+            <div class="space-y-3">
+                <label class="text-xs font-semibold uppercase tracking-wider text-slate-400">Select Frame to Test</label>
+                <div id="try-on-selector" class="flex gap-3 overflow-x-auto pb-2">
+                    <!-- Populated via JS -->
+                </div>
+            </div>
+
+            <div class="flex justify-center gap-4 pt-2">
+                <button onclick="uploadCustomPhoto()" class="px-5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-600 text-sm font-semibold hover:bg-slate-50 dark:hover:bg-slate-700 transition flex items-center gap-2">
+                    <i data-lucide="upload" class="w-4 h-4"></i> Upload Photo
+                </button>
+                <button onclick="closeVirtualTryOnModal()" class="px-6 py-2.5 rounded-xl bg-indigo-600 text-white text-sm font-semibold hover:bg-indigo-700 shadow">Done</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PRESCRIPTION & CHECKOUT MODAL -->
+    <div id="checkout-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4 overflow-y-auto">
+        <div class="bg-white dark:bg-slate-800 rounded-3xl max-w-xl w-full p-6 sm:p-8 shadow-2xl relative border border-slate-200 dark:border-slate-700 max-h-[90vh] overflow-y-auto space-y-6">
+            <button onclick="closeCheckoutModal()" class="absolute top-6 right-6 p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-700"><i data-lucide="x" class="w-5 h-5"></i></button>
+            <div class="space-y-1">
+                <h3 class="text-2xl font-bold">Secure Checkout</h3>
+                <p class="text-sm text-slate-500">Complete your order with mock payment confirmation.</p>
+            </div>
+
+            <div class="space-y-4">
+                <h4 class="font-semibold text-sm uppercase tracking-wider text-indigo-600">1. Shipping Information</h4>
+                <div class="grid grid-cols-2 gap-4">
+                    <input type="text" placeholder="First Name" class="p-3 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                    <input type="text" placeholder="Last Name" class="p-3 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                </div>
+                <input type="text" placeholder="Street Address" class="w-full p-3 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                <div class="grid grid-cols-3 gap-4">
+                    <input type="text" placeholder="City" class="p-3 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                    <input type="text" placeholder="State" class="p-3 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                    <input type="text" placeholder="ZIP Code" class="p-3 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                </div>
+            </div>
+
+            <div class="space-y-4 pt-4 border-t border-slate-100 dark:border-slate-700">
+                <h4 class="font-semibold text-sm uppercase tracking-wider text-indigo-600">2. Payment Details (Mock)</h4>
+                <input type="text" placeholder="Card Number (e.g. 4242 •••• •••• 4242)" class="w-full p-3 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                <div class="grid grid-cols-2 gap-4">
+                    <input type="text" placeholder="MM / YY" class="p-3 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                    <input type="text" placeholder="CVV" class="p-3 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                </div>
+            </div>
+
+            <div class="pt-4 border-t border-slate-100 dark:border-slate-700 flex items-center justify-between">
+                <div>
+                    <span class="text-xs text-slate-500">Total Amount:</span>
+                    <h4 id="checkout-total-display" class="text-xl font-extrabold text-indigo-600">$0.00</h4>
+                </div>
+                <button onclick="completeOrder()" class="px-8 py-3.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-2xl shadow-xl shadow-indigo-600/30 transition">
+                    Place Order Now
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 bg-slate-900 text-white dark:bg-white dark:text-slate-900 px-6 py-3.5 rounded-2xl shadow-2xl flex items-center gap-3 transform translate-y-24 opacity-0 transition-all duration-300">
+        <i data-lucide="check-circle" class="w-5 h-5 text-emerald-400"></i>
+        <span id="toast-message" class="text-sm font-medium">Notification message</span>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // Products Database
+        const products = [
+            {
+                id: '1',
+                name: 'Aura Round Gold',
+                category: 'Eyeglasses',
+                shape: 'Round',
+                gender: 'Unisex',
+                price: 145,
+                image: 'https://images.unsplash.com/photo-1574258495973-f010dfbb5371?auto=format&fit=crop&q=80&w=600',
+                description: 'Classic vintage round frames crafted from lightweight titanium with gold plating.'
+            },
+            {
+                id: '2',
+                name: 'Vogue Cat-Eye Tortoise',
+                category: 'Eyeglasses',
+                shape: 'Cat-Eye',
+                gender: 'Women',
+                price: 160,
+                image: 'https://images.unsplash.com/photo-1508296695146-257a814070b4?auto=format&fit=crop&q=80&w=600',
+                description: 'Bold cat-eye silhouette designed to accentuate cheekbones with premium Italian acetate.'
+            },
+            {
+                id: '3',
+                name: 'Titanium Aviator Shades',
+                category: 'Sunglasses',
+                shape: 'Aviator',
+                gender: 'Men',
+                price: 195,
+                image: 'https://images.unsplash.com/photo-1572635196237-14b3f281503f?auto=format&fit=crop&q=80&w=600',
+                description: 'Timeless pilot sunglasses featuring polarized UV400 lenses and anti-reflective coating.'
+            },
+            {
+                id: '4',
+                name: 'Metro Square Matte Black',
+                category: 'Eyeglasses',
+                shape: 'Square',
+                gender: 'Unisex',
+                price: 130,
+                image: 'https://images.unsplash.com/photo-1591076482161-42ce6da69f67?auto=format&fit=crop&q=80&w=600',
+                description: 'Minimalist square frames suitable for professional and casual everyday wear.'
+            },
+            {
+                id: '5',
+                name: 'Cyber Blue Light Shield',
+                category: 'Blue Light Glasses',
+                shape: 'Round',
+                gender: 'Unisex',
+                price: 110,
+                image: 'https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&q=80&w=600',
+                description: 'Advanced lens filters blocking 95% of high-energy visible blue light from screens.'
+            },
+            {
+                id: '6',
+                name: 'Horizon Daily Contact Lenses',
+                category: 'Contact Lenses',
+                shape: 'Round',
+                gender: 'Unisex',
+                price: 75,
+                image: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&q=80&w=600',
+                description: 'Ultra-breathable daily disposable contact lenses with high moisture retention.'
+            },
+            {
+                id: '7',
+                name: 'Solaris Clubmaster',
+                category: 'Sunglasses',
+                shape: 'Square',
+                gender: 'Men',
+                price: 180,
+                image: 'https://images.unsplash.com/photo-1511499767150-a48a237f0083?auto=format&fit=crop&q=80&w=600',
+                description: 'Retro browline sunglasses combining polished acetate and brushed metal.'
+            },
+            {
+                id: '8',
+                name: 'Luna Oversized Gradient',
+                category: 'Sunglasses',
+                shape: 'Cat-Eye',
+                gender: 'Women',
+                price: 165,
+                image: 'https://images.unsplash.com/photo-1509695507497-903c140c49b0?auto=format&fit=crop&q=80&w=600',
+                description: 'Glamorous oversized frames with gradient tinted lenses for ultimate sun defense.'
+            }
+        ];
+
+        // Application State
+        let cart = [];
+        let activeFilters = {
+            category: 'All',
+            shape: 'All',
+            gender: 'All',
+            maxPrice: 300,
+            search: ''
+        };
+
+        // Initialize Lucide Icons and App
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            renderCatalog();
+            renderFilterOptions();
+            renderTryOnSelector();
+            updateCartUI();
+        });
+
+        // Navigation Controller
+        function navigate(viewName) {
+            document.getElementById('view-home').classList.add('hidden');
+            document.getElementById('view-catalog').classList.add('hidden');
+            
+            if (viewName === 'home') {
+                document.getElementById('view-home').classList.remove('hidden');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else if (viewName === 'catalog') {
+                document.getElementById('view-catalog').classList.remove('hidden');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                renderCatalog();
+            }
+        }
+
+        function scrollToSection(id) {
+            navigate('home');
+            setTimeout(() => {
+                const el = document.getElementById(id);
+                if (el) el.scrollIntoView({ behavior: 'smooth' });
+            }, 100);
+        }
+
+        // Dark Mode Toggle
+        function toggleDarkMode() {
+            const html = document.documentElement;
+            html.classList.toggle('dark');
+            const icon = document.getElementById('theme-icon');
+            if (html.classList.contains('dark')) {
+                icon.setAttribute('data-lucide', 'sun');
+            } else {
+                icon.setAttribute('data-lucide', 'moon');
+            }
+            lucide.createIcons();
+        }
+
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Render Filter Options in Sidebar
+        function renderFilterOptions() {
+            // Categories
+            const categories = ['All', 'Eyeglasses', 'Sunglasses', 'Contact Lenses', 'Blue Light Glasses'];
+            const catContainer = document.getElementById('filter-category-container');
+            catContainer.innerHTML = categories.map(cat => `
+                <label class="flex items-center gap-2.5 text-sm cursor-pointer select-none">
+                    <input type="radio" name="filter-cat" value="${cat}" ${activeFilters.category === cat ? 'checked' : ''} onclick="handleCategoryFilter('${cat}')" class="accent-indigo-600">
+                    <span class="${activeFilters.category === cat ? 'font-bold text-indigo-600 dark:text-indigo-400' : 'text-slate-600 dark:text-slate-300'}">${cat}</span>
+                </label>
+            `).join('');
+
+            // Shapes
+            const shapes = ['All', 'Round', 'Cat-Eye', 'Square', 'Aviator'];
+            const shapeContainer = document.getElementById('filter-shape-container');
+            shapeContainer.innerHTML = shapes.map(shp => `
+                <label class="flex items-center gap-2.5 text-sm cursor-pointer select-none">
+                    <input type="radio" name="filter-shp" value="${shp}" ${activeFilters.shape === shp ? 'checked' : ''} onclick="handleShapeFilter('${shp}')" class="accent-indigo-600">
+                    <span class="${activeFilters.shape === shp ? 'font-bold text-indigo-600 dark:text-indigo-400' : 'text-slate-600 dark:text-slate-300'}">${shp}</span>
+                </label>
+            `).join('');
+
+            // Genders
+            const genders = ['All', 'Men', 'Women', 'Unisex'];
+            const genderContainer = document.getElementById('filter-gender-container');
+            genderContainer.innerHTML = genders.map(gen => `
+                <label class="flex items-center gap-2.5 text-sm cursor-pointer select-none">
+                    <input type="radio" name="filter-gen" value="${gen}" ${activeFilters.gender === gen ? 'checked' : ''} onclick="handleGenderFilter('${gen}')" class="accent-indigo-600">
+                    <span class="${activeFilters.gender === gen ? 'font-bold text-indigo-600 dark:text-indigo-400' : 'text-slate-600 dark:text-slate-300'}">${gen}</span>
+                </label>
+            `).join('');
+        }
+
+        function filterByCategory(cat) {
+            activeFilters.category = cat;
+            renderFilterOptions();
+            renderCatalog();
+        }
+
+        function handleCategoryFilter(cat) {
+            activeFilters.category = cat;
+            renderCatalog();
+        }
+
+        function handleShapeFilter(shp) {
+            activeFilters.shape = shp;
+            renderCatalog();
+        }
+
+        function handleGenderFilter(gen) {
+            activeFilters.gender = gen;
+            renderCatalog();
+        }
+
+        function handlePriceFilter(val) {
+            activeFilters.maxPrice = parseInt(val);
+            document.getElementById('price-output').textContent = `$${val}`;
+            renderCatalog();
+        }
+
+        function handleSearch() {
+            activeFilters.search = document.getElementById('search-input').value.toLowerCase();
+            renderCatalog();
+        }
+
+        function resetFilters() {
+            activeFilters = { category: 'All', shape: 'All', gender: 'All', maxPrice: 300, search: '' };
+            document.getElementById('price-range').value = 300;
+            document.getElementById('price-output').textContent = '$300';
+            document.getElementById('search-input').value = '';
+            renderFilterOptions();
+            renderCatalog();
+        }
+
+        // Render Catalog Grid
+        function renderCatalog() {
+            const grid = document.getElementById('product-grid');
+            const noProducts = document.getElementById('no-products');
+
+            const filtered = products.filter(p => {
+                const matchCat = activeFilters.category === 'All' || p.category === activeFilters.category;
+                const matchShape = activeFilters.shape === 'All' || p.shape === activeFilters.shape;
+                const matchGender = activeFilters.gender === 'All' || p.gender === activeFilters.gender;
+                const matchPrice = p.price <= activeFilters.maxPrice;
+                const matchSearch = p.name.toLowerCase().includes(activeFilters.search) || p.description.toLowerCase().includes(activeFilters.search);
+                return matchCat && matchShape && matchGender && matchPrice && matchSearch;
+            });
+
+            if (filtered.length === 0) {
+                grid.innerHTML = '';
+                noProducts.classList.remove('hidden');
+                return;
+            }
+
+            noProducts.classList.add('hidden');
+            grid.innerHTML = filtered.map(p => `
+                <div class="bg-white dark:bg-slate-800 rounded-3xl border border-slate-200 dark:border-slate-700 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col group">
+                    <div class="relative overflow-hidden bg-slate-100 dark:bg-slate-900 h-60">
+                        <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <span class="absolute top-3 left-3 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md px-3 py-1 rounded-full text-[11px] font-bold text-indigo-600 dark:text-indigo-400 shadow">${p.category}</span>
+                        <button onclick="quickView('${p.id}')" class="absolute bottom-3 right-3 bg-white dark:bg-slate-800 text-slate-800 dark:text-white p-2.5 rounded-2xl shadow-lg hover:bg-indigo-600 hover:text-white transition">
+                            <i data-lucide="eye" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow justify-between space-y-4">
+                        <div class="space-y-1">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs text-slate-400 uppercase font-semibold">${p.shape} Frame</span>
+                                <span class="text-xs font-semibold px-2 py-0.5 rounded-md bg-indigo-50 dark:bg-indigo-950 text-indigo-600">${p.gender}</span>
+                            </div>
+                            <h3 class="font-bold text-slate-900 dark:text-white text-base group-hover:text-indigo-600 transition">${p.name}</h3>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 line-clamp-2">${p.description}</p>
+                        </div>
+                        <div class="flex items-center justify-between pt-4 border-t border-slate-100 dark:border-slate-700">
+                            <span class="text-lg font-extrabold text-indigo-600 dark:text-indigo-400">$${p.price}</span>
+                            <button onclick="quickView('${p.id}')" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold rounded-xl shadow">Customize & Buy</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            lucide.createIcons();
+        }
+
+        // Quick View & Lens Customization Modal
+        let selectedProduct = null;
+        let selectedLensType = 'Single Vision';
+        let selectedCoating = 'Anti-Glare Coating';
+
+        function quickView(productId) {
+            selectedProduct = products.find(p => p.id === productId);
+            if (!selectedProduct) return;
+
+            selectedLensType = 'Single Vision';
+            selectedCoating = 'Anti-Glare Coating';
+
+            const modalContent = document.getElementById('modal-content');
+            modalContent.innerHTML = `
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div class="rounded-2xl overflow-hidden bg-slate-100 dark:bg-slate-900 h-72">
+                        <img src="${selectedProduct.image}" alt="${selectedProduct.name}" class="w-full h-full object-cover">
+                    </div>
+                    <div class="space-y-4">
+                        <span class="text-xs font-semibold uppercase tracking-wider text-indigo-600">${selectedProduct.category} &bull; ${selectedProduct.shape}</span>
+                        <h2 class="text-2xl font-bold">${selectedProduct.name}</h2>
+                        <p class="text-sm text-slate-500 dark:text-slate-400">${selectedProduct.description}</p>
+                        <div class="text-2xl font-extrabold text-indigo-600">$${selectedProduct.price} <span class="text-xs font-normal text-slate-400">+ Lenses included</span></div>
+                    </div>
+                </div>
+
+                <div class="space-y-4 pt-6 border-t border-slate-100 dark:border-slate-700">
+                    <h4 class="font-bold text-sm uppercase tracking-wider text-slate-400">1. Select Lens Type</h4>
+                    <div class="grid grid-cols-2 gap-3">
+                        <button onclick="setLensType('Single Vision', this)" class="lens-type-btn p-3 rounded-xl border border-indigo-600 bg-indigo-50 dark:bg-indigo-950/50 text-indigo-700 dark:text-indigo-300 text-xs font-semibold text-left transition">
+                            Single Vision (Free)
+                        </button>
+                        <button onclick="setLensType('Progressive', this)" class="lens-type-btn p-3 rounded-xl border border-slate-200 dark:border-slate-700 text-xs font-semibold text-left transition hover:border-indigo-600">
+                            Progressive (+$50)
+                        </button>
+                    </div>
+                </div>
+
+                <div class="space-y-4">
+                    <h4 class="font-bold text-sm uppercase tracking-wider text-slate-400">2. Lens Coating & Add-ons</h4>
+                    <div class="grid grid-cols-2 gap-3">
+                        <button onclick="setCoating('Anti-Glare Coating', this)" class="coating-btn p-3 rounded-xl border border-indigo-600 bg-indigo-50 dark:bg-indigo-950/50 text-indigo-700 dark:text-indigo-300 text-xs font-semibold text-left transition">
+                            Anti-Glare Coating (Free)
+                        </button>
+                        <button onclick="setCoating('Blue Light Defense', this)" class="coating-btn p-3 rounded-xl border border-slate-200 dark:border-slate-700 text-xs font-semibold text-left transition hover:border-indigo-600">
+                            Blue Light Defense (+$30)
+                        </button>
+                    </div>
+                </div>
+
+                <div class="space-y-4">
+                    <h4 class="font-bold text-sm uppercase tracking-wider text-slate-400">3. Prescription Method</h4>
+                    <div class="grid grid-cols-3 gap-3">
+                        <button onclick="setRxMode('upload', this)" class="rx-btn p-3 rounded-xl border border-indigo-600 bg-indigo-50 dark:bg-indigo-950/50 text-xs font-semibold text-center transition">Upload Rx</button>
+                        <button onclick="setRxMode('manual', this)" class="rx-btn p-3 rounded-xl border border-slate-200 dark:border-slate-700 text-xs font-semibold text-center transition">Enter Manually</button>
+                        <button onclick="setRxMode('later', this)" class="rx-btn p-3 rounded-xl border border-slate-200 dark:border-slate-700 text-xs font-semibold text-center transition">Send Later</button>
+                    </div>
+                    <div id="rx-input-area" class="p-4 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-xs text-slate-500">
+                        <div class="flex items-center gap-3">
+                            <i data-lucide="upload-cloud" class="w-8 h-8 text-indigo-600"></i>
+                            <div>
+                                <span class="font-semibold text-slate-800 dark:text-white">Upload your prescription photo or PDF</span>
+                                <p class="text-[11px] text-slate-400">Drag & drop file or click to browse</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pt-4 flex items-center justify-between">
+                    <button onclick="openVirtualTryOnModal()" class="px-5 py-3 rounded-xl border border-slate-300 dark:border-slate-600 text-sm font-semibold hover:bg-slate-50 dark:hover:bg-slate-700 transition flex items-center gap-2">
+                        <i data-lucide="sparkles" class="w-4 h-4 text-indigo-600"></i> Virtual Try-On
+                    </button>
+                    <button onclick="addToCartFromModal()" class="px-8 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl shadow-lg shadow-indigo-600/30 transition">
+                        Add to Bag - $<span id="modal-total-price">${selectedProduct.price}</span>
+                    </button>
+                </div>
+            `;
+
+            document.getElementById('product-modal').classList.remove('hidden');
+            lucide.createIcons();
+        }
+
+        function closeProductModal() {
+            document.getElementById('product-modal').classList.add('hidden');
+        }
+
+        function setLensType(type, btn) {
+            selectedLensType = type;
+            document.querySelectorAll('.lens-type-btn').forEach(b => {
+                b.className = "lens-type-btn p-3 rounded-xl border border-slate-200 dark:border-slate-700 text-xs font-semibold text-left transition hover:border-indigo-600";
+            });
+            btn.className = "lens-type-btn p-3 rounded-xl border border-indigo-600 bg-indigo-50 dark:bg-indigo-950/50 text-indigo-700 dark:text-indigo-300 text-xs font-semibold text-left transition";
+            updateModalPrice();
+        }
+
+        function setCoating(coating, btn) {
+            selectedCoating = coating;
+            document.querySelectorAll('.coating-btn').forEach(b => {
+                b.className = "coating-btn p-3 rounded-xl border border-slate-200 dark:border-slate-700 text-xs font-semibold text-left transition hover:border-indigo-600";
+            });
+            btn.className = "coating-btn p-3 rounded-xl border border-indigo-600 bg-indigo-50 dark:bg-indigo-950/50 text-indigo-700 dark:text-indigo-300 text-xs font-semibold text-left transition";
+            updateModalPrice();
+        }
+
+        function setRxMode(mode, btn) {
+            document.querySelectorAll('.rx-btn').forEach(b => {
+                b.className = "rx-btn p-3 rounded-xl border border-slate-200 dark:border-slate-700 text-xs font-semibold text-center transition";
+            });
+            btn.className = "rx-btn p-3 rounded-xl border border-indigo-600 bg-indigo-50 dark:bg-indigo-950/50 text-xs font-semibold text-center transition";
+            
+            const area = document.getElementById('rx-input-area');
+            if (mode === 'upload') {
+                area.innerHTML = `
+                    <div class="flex items-center gap-3">
+                        <i data-lucide="upload-cloud" class="w-8 h-8 text-indigo-600"></i>
+                        <div>
+                            <span class="font-semibold text-slate-800 dark:text-white">Upload your prescription photo or PDF</span>
+                            <p class="text-[11px] text-slate-400">Drag & drop file or click to browse</p>
+                        </div>
+                    </div>
+                `;
+            } else if (mode === 'manual') {
+                area.innerHTML = `
+                    <div class="grid grid-cols-2 gap-2">
+                        <input type="text" placeholder="OD (Right Eye) Sphere" class="p-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs">
+                        <input type="text" placeholder="OS (Left Eye) Sphere" class="p-2 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs">
+                    </div>
+                `;
+            } else {
+                area.innerHTML = `<p class="text-xs text-slate-500">We will email you instructions on how to send your prescription later.</p>`;
+            }
+            lucide.createIcons();
+        }
+
+        function updateModalPrice() {
+            let total = selectedProduct.price;
+            if (selectedLensType === 'Progressive') total += 50;
+            if (selectedCoating === 'Blue Light Defense') total += 30;
+            document.getElementById('modal-total-price').textContent = total;
+        }
+
+        function addToCartFromModal() {
+            let finalPrice = selectedProduct.price;
+            if (selectedLensType === 'Progressive') finalPrice += 50;
+            if (selectedCoating === 'Blue Light Defense') finalPrice += 30;
+
+            const cartItem = {
+                id: Date.now().toString(),
+                productId: selectedProduct.id,
+                name: selectedProduct.name,
+                image: selectedProduct.image,
+                price: finalPrice,
+                lensType: selectedLensType,
+                coating: selectedCoating,
+                quantity: 1
+            };
+
+            cart.push(cartItem);
+            closeProductModal();
+            updateCartUI();
+            toggleCartDrawer(true);
+            showToast('Added to shopping bag!');
+        }
+
+        // Shopping Cart Drawer
+        function toggleCartDrawer(open) {
+            const drawer = document.getElementById('cart-drawer');
+            if (open) {
+                drawer.classList.remove('hidden');
+            } else {
+                drawer.classList.add('hidden');
+            }
+        }
+
+        function updateCartUI() {
+            const badge = document.getElementById('cart-badge');
+            const countSpan = document.getElementById('cart-count');
+            const itemsContainer = document.getElementById('cart-items');
+            const cartFooter = document.getElementById('cart-footer');
+            const cartEmpty = document.getElementById('cart-empty');
+            
+            const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+            badge.textContent = totalCount;
+            countSpan.textContent = totalCount;
+
+            if (cart.length === 0) {
+                itemsContainer.innerHTML = '';
+                cartFooter.classList.add('hidden');
+                cartEmpty.classList.remove('hidden');
+                return;
+            }
+
+            cartEmpty.classList.add('hidden');
+            cartFooter.classList.remove('hidden');
+
+            itemsContainer.innerHTML = cart.map(item => `
+                py-4 flex items-center justify-between gap-4">
+                    <img src="${item.image}" alt="${item.name}" class="w-16 h-16 object-cover rounded-xl bg-slate-100">
+                    <div class="flex-grow space-y-1">
+                        <h5 class="font-bold text-sm">${item.name}</h5>
+                        <p class="text-[11px] text-slate-400">${item.lensType} &bull; ${item.coating}</p>
+                        <span class="font-bold text-sm text-indigo-600">$${item.price}</span>
+                    </div>
+                    <button onclick="removeFromCart('${item.id}')" class="p-2 text-slate-400 hover:text-rose-500 transition"><i data-lucide="trash-2" class="w-4 h-4"></i></button>
+                </div>
+            `).join('');
+
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            document.getElementById('cart-subtotal').textContent = `$${subtotal.toFixed(2)}`;
+            document.getElementById('cart-total').textContent = `$${subtotal.toFixed(2)}`;
+
+            lucide.createIcons();
+        }
+
+        function removeFromCart(itemId) {
+            cart = cart.filter(item => item.id !== itemId);
+            updateCartUI();
+            showToast('Item removed from bag');
+        }
+
+        // Virtual Try-On Modal
+        function openVirtualTryOnModal() {
+            renderTryOnSelector();
+            document.getElementById('try-on-modal').classList.remove('hidden');
+        }
+
+        function closeVirtualTryOnModal() {
+            document.getElementById('try-on-modal').classList.add('hidden');
+        }
+
+        function renderTryOnSelector() {
+            const container = document.getElementById('try-on-selector');
+            container.innerHTML = products.map(p => `
+                <button onclick="selectTryOnFrame('${p.name}', '${p.shape}')" class="flex-shrink-0 p-2 rounded-xl border border-slate-200 dark:border-slate-700 hover:border-indigo-600 text-left w-32 bg-slate-50 dark:bg-slate-900 transition">
+                    <img src="${p.image}" class="w-full h-12 object-cover rounded-lg mb-1">
+                    <span class="block text-[11px] font-bold truncate">${p.name}</span>
+                </button>
+            `).join('');
+        }
+
+        function selectTryOnFrame(name, shape) {
+            document.getElementById('overlay-label').textContent = name;
+            showToast(`Applied ${name} to virtual mirror`);
+        }
+
+        function uploadCustomPhoto() {
+            showToast('Photo uploaded successfully! Fitting calibrated.');
+        }
+
+        // Checkout Modal & Mock Payment
+        function openCheckoutModal() {
+            if (cart.length === 0) return;
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            document.getElementById('checkout-total-display').textContent = `$${subtotal.toFixed(2)}`;
+            toggleCartDrawer(false);
+            document.getElementById('checkout-modal').classList.remove('hidden');
+        }
+
+        function closeCheckoutModal() {
+            document.getElementById('checkout-modal').classList.add('hidden');
+        }
+
+        function completeOrder() {
+            closeCheckoutModal();
+            cart = [];
+            updateCartUI();
+            showToast('🎉 Order placed successfully! Check your email for confirmation.');
+            navigate('home');
+        }
+
+        // Quiz Handler
+        function answerQuiz(step, answer) {
+            const container = document.getElementById('quiz-container');
+            if (step === 1) {
+                container.innerHTML = `
+                    <div class="quiz-step space-y-4" data-step="2">
+                        <h4 class="font-semibold text-lg">2. Do you currently wear prescription glasses or contacts?</h4>
+                        <div class="grid grid-cols-2 gap-4">
+                            <button onclick="answerQuiz(2, 'Yes')" class="p-4 rounded-2xl border border-slate-200 dark:border-slate-700 hover:border-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-950/30 text-sm font-medium transition">Yes, daily</button>
+                            <button onclick="answerQuiz(2, 'No')" class="p-4 rounded-2xl border border-slate-200 dark:border-slate-700 hover:border-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-950/30 text-sm font-medium transition">No, just for reading / screens</button>
+                        </div>
+                    </div>
+                `;
+            } else if (step === 2) {
+                container.innerHTML = `
+                    <div class="quiz-step space-y-4 text-center py-6">
+                        <div class="w-16 h-16 bg-emerald-100 dark:bg-emerald-950 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i data-lucide="check" class="w-8 h-8"></i>
+                        </div>
+                        <h4 class="font-bold text-2xl">Recommendation Ready!</h4>
+                        <p class="text-sm text-slate-500">Based on your answers, we recommend our <strong class="text-indigo-600">Blue Light Shield</strong> glasses with anti-glare coating to reduce eye strain.</p>
+                        <button onclick="filterByCategory('Blue Light Glasses'); navigate('catalog')" class="px-8 py-3 bg-indigo-600 text-white rounded-xl font-semibold shadow">Shop Recommended Lenses</button>
+                    </div>
+                `;
+                lucide.createIcons();
+            }
+        }
+
+        // Toast Notification Helper
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const msgSpan = document.getElementById('toast-message');
+            msgSpan.textContent = message;
+            toast.classList.remove('translate-y-24', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.add('translate-y-24', 'opacity-0');
+            }, 3500);
+        }
+    </script>
+</body>
+</html>
